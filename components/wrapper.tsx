@@ -18,7 +18,7 @@ export default function Wrapper({ children }: { children: React.ReactNode }) {
   const [previousPage, setPreviousPage] = useState<undefined | string>("/");
   const pathname = usePathname();
   const activeSection = SECTION_DATA.find(
-    (section) => section.href === pathname
+    (section) => section.href === pathname,
   );
 
   useEffect(() => {
@@ -41,9 +41,9 @@ export default function Wrapper({ children }: { children: React.ReactNode }) {
           href="/"
           className={`flex items-center text-2xl font-bold dark:text-white`}
         >
-          Kami.{" "}
+          Inkigai.{" "}
           <span
-            className={`text-sm font-bold group ml-2 inline-block rounded-3xl bg-[#fafafa] px-3 text-black`}
+            className={`group ml-2 inline-block rounded-3xl bg-[#fafafa] px-3 text-sm font-bold text-black`}
           >
             <span className="">v3.2</span>
           </span>
@@ -52,35 +52,7 @@ export default function Wrapper({ children }: { children: React.ReactNode }) {
         <ThemeToggle />
       </div>
       {children}
-      <div className="flex w-full items-center justify-between">
-        <Link href={previousPage as string} passHref>
-          <Button
-            disabled
-            className="text-sm font-bold rounded-3xl bg-[#e0dede] text-black dark:bg-zinc-800 dark:text-zinc-400 px-7 py-2 opacity-50 hover:bg-[#d1d0d0] dark:hover:bg-zinc-900"
-          >
-            <span className="">Back</span>
-          </Button>
-        </Link>
-        <div className={`text-xs font-bold py-2  group-hover:bg-[#e1ffe1c5]`}>
-          <p className="text-xs">
-            <span className="inline-block dark:text-white">
-              {pathname === activeSection?.href ? activeSection.label : null}
-            </span>
-            <span className="inline-block px-3 opacity-50">/</span>
-            <span className="inline-block dark:text-white opacity-50">
-              {SECTION_DATA.length}
-            </span>
-          </p>
-        </div>
-
-        <Link href={nextPage as string} passHref>
-          <Button
-            className={`text-sm font-bold rounded-3xl bg-zinc-900 text-white dark:bg-white px-7 py-2 dark:text-black`}
-          >
-            <span className="">Next</span>
-          </Button>
-        </Link>
-      </div>
+      <div className="flex w-full items-center justify-between"></div>
     </>
   );
 }

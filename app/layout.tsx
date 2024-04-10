@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { Provider } from "@/components/provider";
 
 import localFont from "next/font/local";
+import Link from "next/link";
+import ThemeToggle from "@/components/theme-toggle";
 
 const spaceMono = localFont({
   src: [
@@ -30,9 +32,9 @@ const spaceMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Kaminari",
+  title: "Inkigai",
   generator: "Next.js",
-  applicationName: "Kaminari",
+  applicationName: "Inkigai",
   referrer: "origin-when-cross-origin",
   keywords: [
     "Next.js",
@@ -53,10 +55,10 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL("https://kaminari.vercel.app"),
   openGraph: {
-    title: "Kaminari",
+    title: "Inkigai",
     description: "Next.js, TailwindCSS and shadcn-ui Starter Template",
     url: "https://kaminari.vercel.app",
-    siteName: "Kaminari",
+    siteName: "Inkigai",
     images: [
       {
         url: "https://kaminari.vercel.app/og.png",
@@ -88,9 +90,24 @@ export default function RootLayout({
       <body className={`${spaceMono.className}`}>
         <Provider attribute="class" defaultTheme="system" enableSystem>
           <main
-            className={`text-zinc-700 bg-white dark:text-zinc-400 dark:bg-black`}
+            className={`flex h-screen flex-col justify-between bg-white p-9 text-zinc-700 dark:bg-black dark:text-zinc-400`}
           >
+            <div className="flex w-full items-center justify-between">
+              <Link
+                href="/"
+                className={`flex items-center text-2xl font-bold dark:text-white`}
+              >
+                Inkigai.{" "}
+                <span
+                  className={`group ml-2 inline-block rounded-3xl bg-[#fafafa] px-3 text-sm font-bold text-black`}
+                >
+                  <span className="">v3.2</span>
+                </span>
+              </Link>
+              <ThemeToggle />
+            </div>
             {children}
+            <div className="flex w-full items-center justify-between"></div>
           </main>
         </Provider>
       </body>
