@@ -1,26 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { createClient } from "@/utils/supabase/client";
-import { usePathname } from "next/navigation";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
-import localFont from "next/font/local";
-
-interface FormData {
-  email: string;
-}
-
-const spaceMono = localFont({
-  src: "../../../public/fonts/space-mono/SpaceMono-Regular.ttf",
-});
+import { useUserStore } from "@/zustand/store";
 
 const Login = () => {
-  const [formData, setFormData] = useState<FormData>({
-    email: "",
-  });
   const [url, setUrl] = useState<string>();
+  const { id } = useUserStore();
 
   const supabase = createClient();
 
@@ -39,7 +26,7 @@ const Login = () => {
         <Auth
           supabaseClient={supabase}
           view="magic_link"
-          redirectTo={`https://${url}/auth/callback`}
+          redirectTo={`http://${url}/auth/callback`}
           showLinks={false}
           appearance={{
             theme: ThemeSupa,

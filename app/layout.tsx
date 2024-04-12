@@ -1,3 +1,5 @@
+"use client ";
+
 import "./globals.css";
 import type { Metadata } from "next";
 import { Provider } from "@/components/provider";
@@ -5,6 +7,15 @@ import { Provider } from "@/components/provider";
 import localFont from "next/font/local";
 import Link from "next/link";
 import ThemeToggle from "@/components/theme-toggle";
+import { Button } from "@/components/ui/button";
+import {
+  Session,
+  createClientComponentClient,
+  createServerComponentClient,
+} from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import { useEffect, useState } from "react";
+import Header from "@/components/header";
 
 const spaceMono = localFont({
   src: [
@@ -80,11 +91,17 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const supabase = createServerComponentClient({ cookies });
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
   return (
     <html lang="en">
       <body className={`${spaceMono.className}`}>
@@ -104,7 +121,10 @@ export default function RootLayout({
                   <span className="">v3.2</span>
                 </span>
               </Link>
-              <ThemeToggle />
+              <div className="flex items-center justify-between gap-5">
+                {session && <Header session={session} />}
+                <ThemeToggle />
+              </div>
             </div>
             {children}
             <div className="flex w-full items-center justify-between"></div>
